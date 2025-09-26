@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/healthxpress/static/css/main.e6c13ad2.css",
+    "main.js": "/healthxpress/static/js/main.7d6a8f55.js",
+    "static/js/453.a394a38e.chunk.js": "/healthxpress/static/js/453.a394a38e.chunk.js",
+    "index.html": "/healthxpress/index.html",
+    "main.e6c13ad2.css.map": "/healthxpress/static/css/main.e6c13ad2.css.map",
+    "main.7d6a8f55.js.map": "/healthxpress/static/js/main.7d6a8f55.js.map",
+    "453.a394a38e.chunk.js.map": "/healthxpress/static/js/453.a394a38e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.7d6a8f55.js"
+  ]
+}
