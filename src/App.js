@@ -165,7 +165,7 @@ export default function App() {
   const symptomResponses = {
     en: { urgent:"⚠ Urgent: Go to hospital", seeDoctor:"🤒 See a doctor soon", mild:"🙂 Mild, manage at home", unknown:"🙂 Symptoms not recognized, monitor & consult if needed", empty:"Please type something first..." },
     hi: { urgent:"⚠ तुरंत अस्पताल जाएँ", seeDoctor:"🤒 डॉक्टर से जल्द मिलें", mild:"🙂 हल्का, घर पर संभालें", unknown:"🙂 लक्षण पहचाने नहीं गए, जरूरत होने पर डॉक्टर से मिलें", empty:"कृपया कुछ टाइप करें..." },
-    ta: { urgent:"⚠ அவசரமாக: மருத்துவமனைக்கு செல்லவும்", seeDoctor:"🤒 டாக்டரை விரைவில் பார்க்கவும்", mild:"🙂 லேசானது, வீட்டில் பராமரிக்கவும்", unknown:"🙂 அறிகுறிகள் தெரியவில்லை, தேவையெனில் மருத்துவரை பார்க்கவும்", empty:"தயவுசெய்து ஏதாவது టైప్ செய்யவும்" },
+    ta: { urgent:"⚠ அவசரமாக: மருத்துவமனைக்கு செல்லவும்", seeDoctor:"🤒 டாக்டரை விரைவில் பார்க்கவும்", mild:"🙂 லேசானது, வீட்டில் பராமரிக்கவும்", unknown:"🙂 அறிகுறிகள் தெரியவில்லை, தேவையெனில் மருத்துவரை பார்க்கவும்", empty:"தயவுசெய்து ஏதாவது টাইப் செய்யவும்" },
     ml: { urgent:"⚠ അടിയന്തരമായി: ആശുപത്രിയിലേക്ക് പോകുക", seeDoctor:"🤒 ഡോക്ടറെ ഉടനെ കാണുക", mild:"🙂 ലളിതം, വീട്ടിൽ നിയന്ത്രിക്കുക", unknown:"🙂 ലക്ഷണങ്ങൾ തിരിച്ചറിയാനായില്ല, ആവശ്യമെങ്കിൽ ഡോക്ടറെ കാണുക", empty:"ദയവായി ഒന്നുകൂടി ടൈപ്പ് ചെയ്യുക" },
     te: { urgent:"⚠ అత్యవసరం: ఆసుపత్రికి వెళ్లండి", seeDoctor:"🤒 డాక్టర్‌ను త్వరగా చూడండి", mild:"🙂 లైట్, ఇంట్లో నిర్వహించండి", unknown:"🙂 లక్షణాలు గుర్తించబడలేదు, అవసరమైతే డాక్టర్‌ను చూడండి", empty:"దయచేసి ఏదైనా టైప్ చేయండి..." },
   };
@@ -198,6 +198,27 @@ export default function App() {
   const recordTag = (type)=>{ const color=type==="Prescription"?"#3b82f6":type==="Consultation"?"#f97316":"#10b981"; return { color:"#fff", background:color, padding:"2px 6px", borderRadius:6, fontSize:12, marginLeft:8 }; };
   const listCardStyle = { display:"flex", justifyContent:"space-between", padding:12, borderRadius:12, background:"#f3f4f6", marginBottom:8, alignItems:"center" };
 
+  const languageSelector = (
+    <div style={{marginTop:12, textAlign:"center"}}>
+      {["en","hi","ta","ml","te"].map(lang=>(
+        <button
+          key={lang}
+          onClick={()=>setLanguage(lang)}
+          style={{
+            margin:4,
+            padding:"4px 8px",
+            borderRadius:6,
+            border:"1px solid #ccc",
+            background: language===lang ? "#6366f1" : "#fff",
+            color: language===lang ? "#fff" : "#000"
+          }}
+        >
+          {lang.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
+
   return (
     <div style={containerStyle}>
       <div style={contentStyle}>
@@ -214,13 +235,7 @@ export default function App() {
               {texts[language].loginBtn}
             </button>
             <button onClick={()=>switchScreen("signup")} style={{...backBtnStyle, background:"#6366f1"}}>{texts[language].signupBtn}</button>
-
-            {/* Language Selector */}
-            <div style={{marginTop:20, textAlign:"center"}}>
-              {["en","hi","ta","ml","te"].map(lang=>(
-                <button key={lang} onClick={()=>setLanguage(lang)} style={{margin:4,padding:"4px 8px",borderRadius:6,border:"1px solid #ccc",background: language===lang?"#6366f1":"#fff", color: language===lang?"#fff":"#000"}}>{lang.toUpperCase()}</button>
-              ))}
-            </div>
+            {languageSelector}
           </div>
         )}
 
@@ -240,6 +255,7 @@ export default function App() {
               {texts[language].signupBtn}
             </button>
             <button style={backBtnStyle} onClick={()=>switchScreen("login")}>{texts[language].back}</button>
+            {languageSelector}
           </div>
         )}
 
@@ -250,11 +266,9 @@ export default function App() {
               <div style={{width:36,height:36,borderRadius:"50%", background:"#d1d5db", display:"flex", alignItems:"center", justifyContent:"center"}}>👤</div>
               <span style={{fontSize:14, fontWeight:600, color:"#374151"}}>{email}</span>
             </div>
-
             <h2 style={{color:"#166534", fontSize:28, marginBottom:24, opacity:animate?1:0, transform:animate?"translateY(0)":"translateY(-20px)", transition:"all 0.6s ease"}}>
               {texts[language].loginTitle}, {email}
             </h2>
-
             <div style={{display:"grid", gap:20}}>
               {[ 
                 { text: texts[language].teleconsult, screen: "consult", bg:"#dbeafe" },
@@ -267,13 +281,7 @@ export default function App() {
                 </div>
               ))}
             </div>
-
-            {/* Language Selector */}
-            <div style={{marginTop:20, textAlign:"center"}}>
-              {["en","hi","ta","ml","te"].map(lang=>(
-                <button key={lang} onClick={()=>setLanguage(lang)} style={{margin:4,padding:"4px 8px",borderRadius:6,border:"1px solid #ccc",background: language===lang?"#6366f1":"#fff", color: language===lang?"#fff":"#000"}}>{lang.toUpperCase()}</button>
-              ))}
-            </div>
+            {languageSelector}
           </div>
         )}
 
@@ -289,6 +297,7 @@ export default function App() {
               </div>
             ))}
             <button style={backBtnStyle} onClick={()=>switchScreen("home")}>{texts[language].back}</button>
+            {languageSelector}
           </div>
         )}
 
@@ -304,6 +313,7 @@ export default function App() {
               </div>
             ))}
             <button style={backBtnStyle} onClick={()=>switchScreen("home")}>{texts[language].back}</button>
+            {languageSelector}
           </div>
         )}
 
@@ -319,6 +329,7 @@ export default function App() {
               </div>
             ))}
             <button style={backBtnStyle} onClick={()=>switchScreen("home")}>{texts[language].back}</button>
+            {languageSelector}
           </div>
         )}
 
@@ -326,8 +337,14 @@ export default function App() {
         {activeScreen==="ai" && (
           <div style={card}>
             <h2 style={{color:"#6366f1", marginBottom:16}}>{texts[language].symptom}</h2>
-            <textarea placeholder={texts[language].symptomPlaceholder} style={{...inputStyle, minHeight:100}} value={symptomNote} onChange={e=>setSymptomNote(e.target.value)} />
+            <textarea
+              placeholder={texts[language].symptomPlaceholder}
+              style={{...inputStyle, minHeight:100}}
+              value={symptomNote}
+              onChange={e=>setSymptomNote(e.target.value)}
+            />
             <button onClick={checkSymptoms} style={{...backBtnStyle, background:"#6366f1"}}>{texts[language].check}</button>
+            {languageSelector}
             {symptomOutput && <p style={{marginTop:12, fontWeight:600}}>{symptomOutput}</p>}
             <button style={backBtnStyle} onClick={()=>switchScreen("home")}>{texts[language].back}</button>
           </div>
